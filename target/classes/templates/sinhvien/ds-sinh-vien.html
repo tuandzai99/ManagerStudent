@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org"
+	xmlns:sec="http://www.w3.org/1999/xhtml/thymeleaf-extras-springsecurity5" >
+<!--<head th:replace ="/ds/fragment :: head"/>-->
+<head >
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>danh sách sinh viên</title>
+	<link rel="stylesheet"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<!--	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>-->
+<!--	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+</head>
+
+<body>
+	<div th:replace="/ds/menu :: menu"></div>
+	<div class="container">
+		<div sec:authorize="isAuthenticated()">
+			Welcome <b> <span sec:authentication="name">UserName</span></b>
+
+			<span sec:authentication="principal.authorities">Roles</span>
+
+			<form th:action ="@{/logout}" mthod ="post">
+				<input type="submit" value="Logout">
+			</form>
+		</div>
+
+
+		<center><h2>DANH SÁCH SINH VIÊN</h2></center>
+		<p>
+			<a sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-primary" href="/them-sinh-vien">Thêm Nhân Viên</a>
+		</p>
+		
+		<label>Tổng số sinh viên: </label><p style="color: red" th:text="${tongsv}"></p>
+		
+		
+
+
+
+
+
+		<label>Tìm kiếm sinh viên theo lớp</label>
+		<form action="/search-sv-lop" method="post">
+			<input type="text" placeholder="Search.." name="ten">
+			<button type="submit">
+				<i class="fa fa-search"></i>
+			</button>
+		</form>
+<!--		<p style="color: red" th:text="${ERROR}"></p>-->
+
+		<label>Tìm kiếm sinh viên theo Khoa</label>
+		<form action="/search-sv-khoa" method="post">
+			<input type="text" placeholder="Search.." name="ten">
+			<button type="submit">
+				<i class="fa fa-search"></i>
+			</button>
+		</form>
+		<p style="color: red" th:text="${ERROR}"></p>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Mã Sinh Viên</th>
+					<th>Tên SinhVien</th>
+					<th>Giới Tính</th>
+					<th>Ngày Sinh</th>
+					<th>Image</th>
+					<th>Quê Quán</th>
+					<th>Lớp</th>
+					<th sec:authorize="hasAnyAuthority('ADMIN')">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item: ${sinhvien}">
+					<td th:text=${item.maSV}></td>
+					<td th:text=${item.tenSV}></td>
+					<td th:text=${item.gioiTinh}?'Nữ':'Nam'></td>
+					<td th:text=${item.ngaySinh}></td>
+					<td>
+						<img th:src="@{${item.getImagePath}}">
+					</td>
+
+<!--					<td th:text=${item.image}></td>-->
+
+					<td th:text=${item.queQuan}></td>
+					<td th:text=${item.lopHoc.tenLop}></td>
+
+					<td  sec:authorize="hasAnyAuthority('ADMIN')">
+					<a class="btn btn-primary btn-sm"
+						th:href="@{'/edit/'+ ${item.maSV}}">Sửa</a>
+						&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger btn-sm"
+						th:href="@{'/delete/'+ ${item.maSV}}">Xóa</a></td>
+				</tr>
+
+			</tbody>
+		</table>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<li class="page-item">
+					<a class="page-link"  th:href="'/ds-sinh-vien?p='+${page.number-1}" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+						<span class="sr-only">Previous</span>
+					</a>
+				</li>
+				<li class="page-item"><a class="page-link" th:href="'/ds-sinh-vien?p=0'">1</a></li>
+				<li class="page-item">
+					<a class="page-link"  th:href="'/ds-sinh-vien?p='+${page.number+1}" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+						<span class="sr-only">Next</span>
+					</a>
+				</li>
+<!--				<li class="page-item">-->
+<!--					<a class="page-link" th:href="'/ds-sinh-vien?p='+${sinhvien.totalPages-1}" aria-label="Last">-->
+<!--						<span aria-hidden="true">&raquo;</span>-->
+<!--						<span class="sr-only">Next</span>-->
+<!--					</a>-->
+<!--				</li>-->
+			</ul>
+		</nav>
+
+
+<!--		<nav aria-label="Page navigation example">-->
+<!--			<ul class="pagination">-->
+<!--				<li class="page-item"><a class="page-link" th:href="'/ds-sinh-vien?p=0'">1</a></li>-->
+<!--				<li class="page-item"><a class="page-link" th:href="'/ds-sinh-vien?p='+${sinhvien.number-1} ">Previous</a></li>-->
+<!--				<li class="page-item"><a class="page-link" th:href="'/ds-sinh-vien?p='+${sinhvien.number+1} ">Next</a></li>-->
+<!--				<li class="page-item"><a class="page-link" th:href="'/ds-sinh-vien?p='+${sinhvien.totalPages-1}">last</a></li>-->
+<!--			</ul>-->
+<!--		</nav>-->
+	</div>
+</body>
+</html>

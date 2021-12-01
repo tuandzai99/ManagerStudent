@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<title>Trang Đăng ký</title>
+</head>
+<body>
+<div th:replace="/ds/menu :: menu"></div>
+	<div class="container" style="margin-top: 10px;">
+		<div class="row"
+			style="border: 1px darkgrey solid; border-radius: 10px; width: 50%; margin: 0 auto; padding: 20px;">
+			<div class="col-sm-12">
+
+				<h2>Sửa Thông tin Lớp</h2>
+				<form th:action="@{/luulopsua}" th:object="${lopdto}" method="post">
+					<div class="form-group">
+						<label>Mã Lớp</label> <input type="text" th:field="*{maLop}"
+						readonly="readonly"	class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Tên Lớp</label> <input type="text" th:field="*{tenLop}"
+							class="form-control"> <br> 
+					Khoa: <select
+							th:field="*{maKhoa}">
+							<option th:each="khoa: ${khoas}" th:value="${khoa.maKhoa}"
+								th:text="${khoa.tenKhoa}"></option>
+						</select> <br>
+
+						<button type="submit" class="btn btn-primary">Lưu</button>
+
+						<button type="reset" class="btn btn-primary">Hủy Bỏ</button>
+
+						<a class="btn btn-primary" href="/ds-lop">Hiển thị danh sách</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

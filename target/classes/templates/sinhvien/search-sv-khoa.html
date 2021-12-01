@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>danh sách sinh viên</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="/ds/menu :: menu"></div>
+	<div class="container">
+		<h2>DANH SÁCH SINH VIÊN</h2>
+		
+	
+		
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Mã Sinh Viên</th>
+					<th>Tên SinhVien</th>
+					<th>Giới Tính</th>
+					<th>Ngày Sinh</th>
+					<th>Image</th>
+					<th>Quê Quán</th>
+					
+				
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item: ${sinhvien}">
+					<td th:text=${item.maSV}></td>
+					<td th:text=${item.tenSV}></td>
+					<td th:text=${item.gioiTinh}?'Nữ':'Nam'></td>
+					<td th:text=${item.ngaySinh}></td>
+					<td th:text=${item.image}></td>
+					<td th:text=${item.queQuan}></td>
+					
+	
+				</tr>
+
+			</tbody>
+		</table>
+		<label>Tổng số lượng sinh viên của khoa : </label><p style="color: red" th:text="${tongsv1khoa}"></p>
+	</div>
+</body>
+</html>

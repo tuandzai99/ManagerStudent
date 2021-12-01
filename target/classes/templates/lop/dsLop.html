@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:sec="http://www.w3.org/1999/xhtml/thymeleaf-extras-springsecurity5">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>danh sách lớp học</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="/ds/menu :: menu"></div>
+	<div class="container">
+		<div sec:authorize="isAuthenticated()">
+			Welcome <b> <span sec:authentication="name">UserName</span></b>
+
+			<span sec:authentication="principal.authorities">Roles</span>
+
+			<form th:action ="@{/logout}" mthod ="post">
+				<input type="submit" value="Logout">
+			</form>
+		</div>
+		<h2>DANH SÁCH LỚP HỌC</h2>
+		<p>
+			<a sec:authorize="hasAnyAuthority('ADMIN')"  class="btn btn-primary" href="/them-lop">Thêm Lớp Học</a>
+		</p>
+		
+		<label>Tổng số sinh viên: </label><p style="color: red" th:text="${tonglop}"></p>
+		
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Mã Lớp</th>
+					<th>Tên Lớp</th>
+					<th>Tên Khoa</th>
+					<th sec:authorize="hasAnyAuthority('ADMIN')">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item: ${lop}">
+					<td th:text=${item.maLop}></td>
+					<td th:text=${item.tenLop}></td>
+					<td th:text=${item.khoa.tenKhoa}></td>
+	
+					<td sec:authorize="hasAnyAuthority('ADMIN')"><a class="btn btn-primary btn-sm" th:href="@{'/lop/edit/'+ ${item.maLop}}">Sửa</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="btn btn-danger btn-sm" th:href="@{'/lop/delete/'+ ${item.maLop}}">Xóa</a>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

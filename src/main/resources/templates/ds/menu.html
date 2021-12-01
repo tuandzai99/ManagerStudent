@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Quản lý sinh viên</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   </head>
+   <body>
+ 
+      <!-- A horizontal navbar that becomes vertical on small screens -->
+      <div th:fragment="menu">
+          <nav class="navbar navbar-expand-sm bg-dark"  >
+         <!-- Links -->
+         <ul class="navbar-nav">
+            <li class="nav-item">
+               <a class="nav-link" href="/ds-sinh-vien">Quản Lý Sinh Viên</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="/ds-lop">Quản Lý Lớp Học</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="/ds-khoa">Quản Lý Khoa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/ds-monhoc">Quản Lý Môn Học</a>
+             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="/ds-kq">Quản Lý Kết Quả</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="/thongke">Thống Kê</a>
+            </li>
+			 <li class="nav-item">
+                <a class="nav-link" href="/logout">Đăng xuất</a>
+             </li>
+         </ul>
+      </nav>
+      </div>
+      <img src="/images/menu.jpg" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+      <div th:fragment="css_js">
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      </div>
+   </body>
+</html>
